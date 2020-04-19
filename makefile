@@ -2,7 +2,7 @@ BC_COMUNAS_URL = "https://www.bcn.cl/obtienearchivo?id=repositorio/10221/10396/2
 OUTPUT_FILE ?= comunas.geojson
 OGR_SIMPLIFY ?= 2000
 
-SHAPE_FILES = comunas.shp comunas.shx comunas.prj
+SHAPE_FILES = comunas.shp comunas.shx comunas.prj comunas.dbf comunas.sbn comunas.sbx
 
 $(OUTPUT_FILE): $(SHAPE_FILES)
 	ogr2ogr -f GeoJSON -t_srs crs:84 -progress -simplify $(OGR_SIMPLIFY) $@ $<

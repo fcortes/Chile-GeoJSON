@@ -2,3 +2,6 @@
 *.shx
 *.prj
 *.zip
+*.dbf
+*.sbn
+*.sbx
