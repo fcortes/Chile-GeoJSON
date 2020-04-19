@@ -1,24 +1,45 @@
 BC_COMUNAS_URL = "https://www.bcn.cl/obtienearchivo?id=repositorio/10221/10396/2/Comunas.zip"
-OUTPUT_FILE ?= comunas.geojson
+BC_REGIONES_URL = "https://www.bcn.cl/obtienearchivo?id=repositorio/10221/10398/2/Regiones.zip"
+ZIP_FILES := comunas.zip Regional.zip
+
+OUTPUT_FILES ?= comunas.geojson Regional.geojson
 OGR_SIMPLIFY ?= 2000
 
-SHAPE_FILES = comunas.shp comunas.shx comunas.prj comunas.dbf comunas.sbn comunas.sbx
+SHAPE_EXTENSIONS := .shp .shx .prj .dbf .sbn .sbx
 
-$(OUTPUT_FILE): $(SHAPE_FILES)
+all: $(OUTPUT_FILES)
+
+%.geojson: %.shp %.shx %.prj %.dbf %.sbn %.sbx
 	ogr2ogr -f GeoJSON -t_srs crs:84 -progress -simplify $(OGR_SIMPLIFY) $@ $<
-	underscore print --in $(OUTPUT_FILE) --out $(OUTPUT_FILE) --outfmt dense
-	sed -i -E 's/([0-9]{2}\.[0-9]{1,4})[0-9]*/\1/g' $(OUTPUT_FILE)
+	underscore print --in $@ --out $@ --outfmt dense
+	sed -i -E 's/([0-9]{2}\.[0-9]{1,4})[0-9]*/\1/g' $@
 
-Comunas.zip:
+comunas.zip:
 	wget -O $@ $(BC_COMUNAS_URL)
 
-$(SHAPE_FILES): Comunas.zip
-	unzip Comunas.zip $@
+Regional.zip:
+	wget -O $@ $(BC_REGIONES_URL)
+
+%.shp: %.zip
+	unzip $< $@
+%.shx: %.zip
+	unzip $< $@
+%.prj: %.zip
+	unzip $< $@
+%.dbf: %.zip
+	unzip $< $@
+%.sbn: %.zip
+	unzip $< $@
+%.sbx: %.zip
+	unzip $< $@
 
 clean:
-	rm -f $(OUTPUT_FILE)
-	rm -f $(SHAPE_FILES)
-	rm -f Comunas.zip
+	rm -f $(ZIP_FILES)
+	rm -f $(addprefix comunas, $(SHAPE_EXTENSIONS))
+	rm -f $(addprefix Regional, $(SHAPE_EXTENSIONS))
 
-.PHONY: clean
+clean-all: clean
+	rm -f $(OUTPUT_FILES)
+
+.PHONY: clean clean-all
 
