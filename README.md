@@ -21,5 +21,5 @@ Además, es necesario instalar [underscore](https://www.npmjs.com/package/unders
 
 ## Referencias
 
-* La idea de este repositorio está basada en gran parte de este repositorio: [jlhonorato/geo](https://github.com/jlhonorato/geo)
+* La idea de este repositorio está basada en gran parte de este repositorio: [jlhonorato/geo](https://github.com/jlhonora/geo)
 * Mapas vectoriales de Chile de la Biblioteca del Congreso de Chile: [Mapas Vectoriales](https://www.bcn.cl/siit/mapas_vectoriales/index_html/)
