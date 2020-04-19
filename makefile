@@ -1,5 +1,5 @@
 BC_COMUNAS_URL = "https://www.bcn.cl/obtienearchivo?id=repositorio/10221/10396/2/Comunas.zip"
-OUTPUT_FILE ?= comunas.json
+OUTPUT_FILE ?= comunas.geojson
 OGR_SIMPLIFY ?= 2000
 
 SHAPE_FILES = comunas.shp comunas.shx comunas.prj
